@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ToDo List</string>
     <string name="header">To Do</string>
+    <string name="add_item">add item</string>
 </resources>

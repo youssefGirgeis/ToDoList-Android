@@ -26,6 +26,7 @@
         android:background="@android:color/transparent"
         android:layout_alignEnd="@id/header"
         android:layout_alignRight="@id/header"
-
+        android:src="@drawable/add_item_button"
+        android:contentDescription="@string/add_item"
         />
 </RelativeLayout>
