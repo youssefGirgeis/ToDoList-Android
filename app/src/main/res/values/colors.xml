@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#333333</color>
+    <color name="primary_dark">#000000</color>
+    <color name="primary_light">#C8E6C9</color>
+    <color name="accent">#33B5E6</color>
+    <color name="primary_text">#FFFFFF</color>
+    <color name="secondary_text">#999999</color>
+    <color name="error_text">#FF4B4B</color>
+    <color name="divider">#B6B6B6</color>
+    <color name="form_field">#FFFFFF</color>
+    <color name="form_field_text">#000000</color>
+</resources>
