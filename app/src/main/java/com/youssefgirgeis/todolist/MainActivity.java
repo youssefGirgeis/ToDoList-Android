@@ -3,10 +3,13 @@ package com.youssefgirgeis.todolist;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +39,7 @@ public class MainActivity extends AppCompatActivity {
         items.add(new ToDoItem("wqqww", true));
         items.add(new ToDoItem("wwwwww", false));
 
-        ArrayAdapter adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                items
-        );
+        ToDoItemAdapter adapter = new ToDoItemAdapter(this, items);
 
         todoList.setAdapter(adapter);
     }
@@ -59,7 +58,16 @@ public class MainActivity extends AppCompatActivity {
 
         public View getView(int position, View convertView, ViewGroup parent){
 
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.to_do_item_layout, parent, false);
 
+            TextView textView = (TextView) convertView.findViewById(R.id.item);
+            CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
+
+            textView.setText(items.get(position).getDesc());
+            checkBox.setChecked(items.get(position).isComplete());
+
+            return convertView;
         }
 
     }
