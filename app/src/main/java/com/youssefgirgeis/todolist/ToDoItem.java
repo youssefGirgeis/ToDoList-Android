@@ -25,6 +25,11 @@ public class ToDoItem {
         return isComplete;
     }
 
+    public void toggleComplete(){
+
+        isComplete = !isComplete;
+    }
+
     public String toString(){
 
         return getDesc();
