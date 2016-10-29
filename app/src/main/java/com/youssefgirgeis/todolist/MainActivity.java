@@ -33,13 +33,10 @@ public class MainActivity extends AppCompatActivity {
             list.add(values[i]);
         }*/
 
-        List<ToDoItem> items = new ArrayList<ToDoItem>();
+        ToDoListManager listManager = new ToDoListManager();
 
-        items.add(new ToDoItem("asd", false));
-        items.add(new ToDoItem("wqqww", true));
-        items.add(new ToDoItem("wwwwww", false));
 
-        ToDoItemAdapter adapter = new ToDoItemAdapter(this, items);
+        ToDoItemAdapter adapter = new ToDoItemAdapter(this, listManager.getList());
 
         todoList.setAdapter(adapter);
     }
@@ -58,14 +55,29 @@ public class MainActivity extends AppCompatActivity {
 
         public View getView(int position, View convertView, ViewGroup parent){
 
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.to_do_item_layout, parent, false);
+            if(convertView == null) {
+
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.to_do_item_layout, parent, false);
+            }
 
             TextView textView = (TextView) convertView.findViewById(R.id.item);
             CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
 
             textView.setText(items.get(position).getDesc());
             checkBox.setChecked(items.get(position).isComplete());
+
+            convertView.setTag(items.get(position));
+
+            convertView.setOnClickListener(new View.OnClickListener(){
+
+               public void onClick(View v){
+
+                   ToDoItem item = (ToDoItem) v.getTag();
+                   item.toggleComplete();
+                   notifyDataSetChanged();
+               }
+            });
 
             return convertView;
         }
