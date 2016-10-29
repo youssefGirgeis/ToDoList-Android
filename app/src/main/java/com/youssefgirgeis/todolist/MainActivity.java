@@ -1,13 +1,18 @@
 package com.youssefgirgeis.todolist;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,7 +44,37 @@ public class MainActivity extends AppCompatActivity {
         ToDoItemAdapter adapter = new ToDoItemAdapter(this, listManager.getList());
 
         todoList.setAdapter(adapter);
+
+        ImageButton addButton = (ImageButton) findViewById(R.id.add_item);
+        addButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                onAddButtonClick();
+            }
+        });
     }
+
+
+    private void onAddButtonClick(){
+
+        AlertDialog.Builder  builder = new AlertDialog.Builder(this);
+        builder.setTitle("Add Item");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.show();
+    }
+
 
     private class ToDoItemAdapter extends ArrayAdapter<ToDoItem>{
 
