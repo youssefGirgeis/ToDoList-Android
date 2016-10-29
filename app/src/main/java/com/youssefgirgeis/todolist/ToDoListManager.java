@@ -23,4 +23,9 @@ public class ToDoListManager {
     public List<ToDoItem> getList(){
         return items;
     }
+
+    public void addItem(ToDoItem item){
+
+        items.add(item); 
+    }
 }
