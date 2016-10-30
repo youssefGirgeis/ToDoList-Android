@@ -16,6 +16,8 @@ import java.util.List;
 
 public class ToDoListManager {
 
+    private SharedPreferences savedData;
+
     private static final String APP_PREFERENCES = "todoapp";
     private static final String TODO_ITEMS = "itemslist";
 
@@ -23,7 +25,7 @@ public class ToDoListManager {
 
     public ToDoListManager(Context context){
 
-        SharedPreferences savedData = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+       savedData = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         String json = savedData.getString(TODO_ITEMS, null);
 
@@ -33,7 +35,7 @@ public class ToDoListManager {
             Type type = new TypeToken<List<ToDoItem>>(){}.getType();
             items = new Gson().fromJson(json, type);
         }
-        
+
     }
 
     public List<ToDoItem> getList(){
@@ -43,5 +45,17 @@ public class ToDoListManager {
     public void addItem(ToDoItem item){
 
         items.add(item);
+        saveList();
+    }
+
+    public void saveList(){
+
+        SharedPreferences.Editor edit = savedData.edit();
+        edit.clear();
+
+        String json = new Gson().toJson(items);
+
+        edit.putString(TODO_ITEMS, json);
+        edit.apply();
     }
 }
