@@ -21,6 +21,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ToDoListManager listManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,16 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         ListView todoList = (ListView) findViewById(R.id.todo_list);
 
-/*        String[] values = new String[] {"millk", "asda", "aaaa", "wwww"};
-
-        ArrayList<String> list = new ArrayList<String>();
-
-        for(int i=0; i<values.length; i++){
-
-            list.add(values[i]);
-        }*/
-
-        ToDoListManager listManager = new ToDoListManager();
+        listManager = new ToDoListManager(getApplicationContext());
 
 
         ToDoItemAdapter adapter = new ToDoItemAdapter(this, listManager.getList());
@@ -67,8 +60,17 @@ public class MainActivity extends AppCompatActivity {
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(DialogInterface dialogInterface, int which) {
 
+                ToDoItem item = new ToDoItem(input.getText().toString(), false);
+                listManager.addItem(item);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                dialog.cancel();
             }
         });
 
